@@ -9,9 +9,8 @@ namespace QuizAPI.DTOs.Account
         public required string UserName { get; set; }
         public required string Email { get; set; }
         public required string Password { get; set; }
-        public required bool IsAdmin { get; set; }//role
-        public required bool IsUser { get; set; }//role
-        public required bool IsAnOrdinaryUser { get; set; }//an ordinary use r
+        public required bool IsAdmin { get; set; }
+
 
        public class SignUpDtoValidator : AbstractValidator<SignUpDto>
         {
@@ -47,21 +46,15 @@ namespace QuizAPI.DTOs.Account
                 //.Matches(@"[0-9]+").WithMessage("Your password must contain at least one number.")
                 //.Matches(@"[\!\?\*\.]+").WithMessage("Your password must contain at least one (!? *.).");
 
-
-
-                RuleFor(x => x)
-                    .Must(RoleValidation)
-                    .WithMessage("Only one role can be true.");
+                RuleFor(x => x.IsAdmin)
+                     .Must(x => x == false || x == true)
+                     .NotNull().WithMessage("IsAdmin field is  required!");
 
             }
 
-            private bool RoleValidation(SignUpDto dto)
-            {
-                return (dto.IsAdmin ? 1 : 0) + (dto.IsUser ? 1 : 0) + (dto.IsAnOrdinaryUser ? 1 : 0) == 1;
-            }
+           
         }
     }
 }
-////
-///
+
 

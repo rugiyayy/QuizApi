@@ -61,7 +61,7 @@ namespace QuizAPI.Controllers
                 {
                     await _userManager.AddToRoleAsync(userEntity, "Admin");
                 }
-                else if (dto.IsUser)
+                else
                 {
                     await _userManager.AddToRoleAsync(userEntity, "User");
                 }
